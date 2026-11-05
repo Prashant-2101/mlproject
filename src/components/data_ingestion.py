@@ -9,6 +9,7 @@ from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 from src.components.model_trainer import ModelTrainerConfig
 from src.components.model_trainer import ModelTrainer
+
 @dataclass
 class DataIngestionConfig:
     train_data_path: str = os.path.join('artifacts','train.csv')
@@ -16,11 +17,13 @@ class DataIngestionConfig:
     raw_data_path: str = os.path.join('artifacts','data.csv')
 
 class DataIngestion:
+    
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
         logging.info('Entered the data ingestion method or component')
+
         try:
             df = pd.read_csv(r'notebook\data\stud.csv')
             df.columns = df.columns.str.replace(' ', '_')
@@ -39,11 +42,13 @@ class DataIngestion:
                 self.ingestion_config.test_data_path
                 
             )
+        
         except Exception as e:
             raise CustomException(e, sys)
 
 
 if __name__ == '__main__':
+
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
 
